@@ -1,0 +1,18 @@
+name: Trigger Playwright Tests for master
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Tests in webtest
+        uses: peter-evans/repository-dispatch@v2
+        with:
+          token: ${{ secrets.REPO_B_PAT }}
+          repository: mahavir2929/webtest
+          event-type: run-playwright-master
+          client-payload: '{"branch": "master", "sha": "${{ github.sha }}"}'
